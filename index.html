@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--  <script src="https://unpkg.com/htmx.org@1.9.8" integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr" crossorigin="anonymous"></script> -->
+     <!--  above is commented out to use the below direct referance  -->
+   <script src="static/htmx.min.js"></script>
+    <title>Simple htmx</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff; /* White background */
+            color: #333333; /* Dark text color */
+            margin: 20px;
+        }
+
+        h1 {
+            color: #0066cc; /* Blue heading color */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        #userInputSection {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 150px;
+            padding: 5px;
+            margin-right: 10px;
+        }
+        #userInputSection label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        #userInputSection label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #userInputSection input {
+            margin-bottom: 10px;
+        }
+        
+        button {
+        display: block;
+            padding: 8px 15px;
+            background-color: #0066cc; /* Blue button color */
+            color: #ffffff; /* White text color */
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #004080; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body >
+    <h1>Simplest htmx Web Page</h1>
+    <p>This is a simple web page that uses htmx to update the page without reloading.</p>
+    <p>htmx.min.js is loaded from the root and no Internet access is required.</p>
+
+    <p>Nominal List of values : cars</p>
+    <p> Make  -  Model </p>
+        <hr>
+            <ul id="car-list">
+                {{ range .Cars }}
+                {{ block "car-list-element" .}}
+                    <li >{{ .Make }} - {{ .Model }}</li>
+                {{ end }}
+                {{ end }}
+            </ul>
+        <hr>
+
+    <form hx-post="/add-car/" hx-target="#car-list" hx-swap="beforeend" hx-indicator="#spinner">
+        <div id="userInputSection">
+            <label for="car-make">Make:</label>
+            <input type="text" name="make"  placeholder="Enter make">
+
+            <label for="car-model">Model:</label>
+            <input type="text" name="model"  placeholder="Enter model">
+
+            <button type="submit">
+                        Submit-AddToList
+            </button>
+        </div>
+    </form>
+    <hr>
+     <p> form is triggered on the submit event</p> 
+    <p> hx-post	Issues a POST request to the given URL "/add-car/" </p> 
+    
+</body>
+</html>
